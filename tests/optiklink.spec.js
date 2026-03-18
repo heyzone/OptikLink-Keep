@@ -262,7 +262,7 @@ test('OptikLink 保活', async ({ }, testInfo) => {
         // 情况A：Discord session 过期 → 跳到 discord.com/login，需填账密
         // 情况B：Discord session 有效 → 直接跳到 optiklink.net 或 oauth2/authorize，无需填账密
         console.log('⏳ 等待跳转目标页面...');
-        await page.waitForURL(url => !url.includes('optiklink.com/auth'), { timeout: TIMEOUT });
+        await page.waitForURL(url => !url.toString().includes('optiklink.com/auth'), { timeout: TIMEOUT });
 
         const landedUrl = page.url();
         console.log(`📍 落地页：${landedUrl}`);
