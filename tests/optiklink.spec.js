@@ -358,16 +358,11 @@ test('OptikLink 保活', async ({ }, testInfo) => {
         await page.click('a[data-target="#logintopanel"]');
         await page.waitForTimeout(2000);
 
-        console.log('📤 点击 Panel Login...');
-        const [panelPage] = await Promise.all([
-            page.context().waitForEvent('page'),
-            page.click('a[href="https://control.optiklink.net/auth/login"]'),
-        ]);
-
+        console.log('📤 直接导航到控制台登录页...');
+        const panelPage = await page.context().newPage();
         panelPage.setDefaultTimeout(TIMEOUT);
         activePage = panelPage;
-        console.log('⏳ 等待跳转控制台登录页...');
-        await panelPage.waitForURL(/control\.optiklink\.net\/auth\/login/, { timeout: TIMEOUT });
+        await panelPage.goto('https://control.optiklink.net/auth/login', { waitUntil: 'domcontentloaded', timeout: TIMEOUT });
         console.log(`✅ 已到达控制台登录页：${panelPage.url()}`);
 
         console.log('✏️ 填写控制台账号密码...');
