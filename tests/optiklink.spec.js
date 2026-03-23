@@ -359,7 +359,7 @@ test('OptikLink 保活', async ({ }, testInfo) => {
         await page.waitForTimeout(2000);
 
         console.log('📤 直接导航到控制台登录页...');
-        const panelPage = await page.context().newPage();
+        const panelPage = page;
         panelPage.setDefaultTimeout(TIMEOUT);
         activePage = panelPage;
         await panelPage.goto('https://control.optiklink.net/auth/login', { waitUntil: 'domcontentloaded', timeout: TIMEOUT });
